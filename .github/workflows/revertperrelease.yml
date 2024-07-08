@@ -41,9 +41,9 @@ jobs:
           git commit -m "revert to release ${{ github.event.inputs.release }}"
           git push
 
-     # - name: Assign release tag
-     #   env:
-     #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
-     #   run: |
-     #     release_notes=$(gh release view ${{ github.event.inputs.release }} --json body --template "{{.body}}")
-     #     gh release create R${{ github.event.inputs.release }} --title "R${{ github.event.inputs.release }}" --notes "$release_notes"
+      - name: Assign release tag
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          release_notes=$(gh release view ${{ github.event.inputs.release }} --json body --template "{{.body}}")
+          gh release create R${{ github.event.inputs.release }} --title "R${{ github.event.inputs.release }}" --notes "$release_notes"

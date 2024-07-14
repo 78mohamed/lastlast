@@ -6,7 +6,14 @@ on:
       release:
         description: 'enter the release'
         required: true
-        default: 'Head'
+
+      release-tag:
+        description: 'Do you want to change the release tag of the repo to the previous tag?'
+        type: choice
+        options:
+        - 'yes'
+        - 'no'
+        required: true
 
 jobs:
   revert_release:
@@ -42,6 +49,7 @@ jobs:
           git push
 
       - name: Assign release tag
+        if: ${{ inputs.release-tag == 'yes' }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
